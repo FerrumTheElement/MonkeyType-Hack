@@ -1,11 +1,9 @@
 from selenium import webdriver
-from pynput.keyboard import Controller
 from bs4 import BeautifulSoup
 import time
 import keyboard as kb
 from selenium.webdriver.chrome.options import Options
 
-keyboard = Controller()
 options = Options()
 options.add_argument('--log-level=3') # prevents an overload of logs in the terminal
 driver = webdriver.Chrome(options)
@@ -15,15 +13,11 @@ print("Connection Established...")
 global h
 
 def ask():
-    global lettertime
+    
     global timedelay
     global timer
     timer = int(input("How long will this be running for?: "))
     timedelay = float(input("What will be the time interval for each letter?: "))
-    
-    lettertime = timer/timedelay * 0.86 # letter time to theoretically calculate the amount of time taken. Used as a sort of timer although it is not accurate
-
-     
 
 def again():
     source = driver.page_source
@@ -51,11 +45,11 @@ def function():
             print("Typing...")
 
             lengthcheck = 0
-            timecheck = 0
+            start_time = time.time()
             while True:
                     
                 while lengthcheck <= len(h):
-                    timecheck += 1
+                    
                     if lengthcheck == len(h):
                         
                         h = again()
@@ -66,11 +60,15 @@ def function():
                             h = h.replace(h[0:text1], '')
                             lengthcheck = 0
                             
-                    elif timecheck == lettertime:
+                            
+                    elapsed_time = (time.time() - start_time)
+                      
+                    if elapsed_time > timer:
+                        print("Typing has been finished")
                         function() 
                     
-                    elif lengthcheck < len(h):
-                        keyboard.type(h[0+lengthcheck])
+                    if lengthcheck < len(h):
+                        kb.write(h[0+lengthcheck])
                         time.sleep(timedelay)
                         lengthcheck += 1
                 break
