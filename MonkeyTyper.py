@@ -10,14 +10,13 @@ driver = webdriver.Chrome(options)
 driver.get("https://monkeytype.com")
 print("Connection Established...")
 
-global h
-
 def ask():
     
     global timedelay
     global timer
     timer = int(input("How long will this be running for?: "))
     timedelay = float(input("What will be the time interval for each letter?: "))
+    print("Press ctrl to start the program\n")
 
 def again():
     source = driver.page_source
