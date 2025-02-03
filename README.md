@@ -1,6 +1,6 @@
 # MonkeyType-Hack
 # Requirements
--Selenium
+-Selenium \n
 -BeautifulSoup
 -Keyboard
 #Desc
